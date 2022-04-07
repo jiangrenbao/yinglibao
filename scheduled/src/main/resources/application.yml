@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: scheduled
+
+dubbo:
+  scan:
+    base-packages: com.bjpowernode
+  registry:
+    address: zookeeper://localhost:2181
+  protocol:
+    name: dubbo

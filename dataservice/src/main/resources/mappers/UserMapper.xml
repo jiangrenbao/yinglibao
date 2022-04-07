@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.dataservice.mapper.UserMapper">
+
+    <!--<editor-fold desc="逆向工程提供sql语句">-->
+    <resultMap id="BaseResultMap" type="com.bjpowernode.model.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="login_password" jdbcType="VARCHAR" property="loginPassword"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="header_image" jdbcType="VARCHAR" property="headerImage"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, phone, login_password, name, id_card, add_time, last_login_time, header_image
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.bjpowernode.model.User">
+    insert into user (id, phone, login_password, 
+      name, id_card, add_time, 
+      last_login_time, header_image)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{headerImage,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.bjpowernode.model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="loginPassword != null">
+                login_password,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="headerImage != null">
+                header_image,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="headerImage != null">
+                #{headerImage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.model.User">
+        update user
+        <set>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="headerImage != null">
+                header_image = #{headerImage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bjpowernode.model.User">
+    update user
+    set phone = #{phone,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      header_image = #{headerImage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="自定义sql语句">-->
+    <select id="selectUserNum" resultType="java.lang.Integer">
+    select count(*) from user
+  </select>
+    <select id="checkPhone" resultType="com.bjpowernode.model.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where phone = #{phone}
+    </select>
+    <insert id="addUser" parameterType="com.bjpowernode.model.User"  >
+        insert into user(phone,login_password,add_time,last_login_time)
+        values(#{phone},#{loginPassword},#{addTime},#{lastLoginTime})
+    </insert>
+    <!--
+    useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+        <selectKey keyColumn="userId"  keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID() as userId
+        </selectKey>
+    -->
+
+    <!--</editor-fold>-->
+    <select id="queryUserIdByPhone" resultType="java.lang.Integer">
+      select id from user where phone = #{phone}
+    </select>
+
+    <!--id
+phone
+login_password
+name
+id_card
+add_time
+last_login_time
+header_image
+-->
+    <update id="updateUserByRealName" parameterType="com.bjpowernode.model.User">
+        update user set name = #{name}, id_card = #{idCard} where phone = #{phone}
+    </update>
+
+    <select id="queryUserByPhoneAndPwd" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user where phone = #{phone} and login_password = #{pwd}
+    </select>
+
+    <select id="queryLeftMoneyByUid" resultType="java.math.BigDecimal">
+        SELECT
+	      available_money
+        FROM
+	      user JOIN finance_account ON user.id = finance_account.u_id
+        WHERE
+	      u_id = #{id}
+    </select>
+    <select id="queryFiveInvestByUid" resultType="java.util.Map">
+        SELECT
+            p.product_name name,
+            i.invest_money money,
+            i.invest_time time
+        FROM
+            user JOIN invest_info i ON user.id = i.user_id
+            JOIN product_info p ON p.id = i.product_id
+        WHERE
+            user.id = #{id}
+        ORDER BY
+            i.invest_time DESC
+            LIMIT 0,5
+    </select>
+    <select id="queryFiveChargeByUid" resultType="java.util.Map">
+        SELECT
+          CASE
+            WHEN
+            r.recharge_status = '0' THEN
+                '充值中'
+                WHEN r.recharge_status = '1' THEN
+                '充值成功'
+                WHEN r.recharge_status = '2' THEN
+                '充值失败' ELSE ''
+            END AS result,
+            r.recharge_money money,
+            r.recharge_time time
+        FROM
+            user u
+            JOIN recharge_record r ON u.id = r.u_id
+        WHERE
+            u.id = #{id}
+        ORDER BY
+        r.recharge_time DESC
+        LIMIT 0,5
+    </select>
+    <select id="queryFiveIncomeByUid" resultType="java.util.Map">
+        SELECT
+            p.product_name name,
+            i.income_date date,
+            i.income_money money
+        FROM
+            user u
+            JOIN income_record i ON u.id = i.u_id
+            JOIN product_info p ON i.product_id = p.id
+        WHERE
+            u.id = #{id}
+        ORDER BY
+            i.income_date DESC
+            LIMIT 0,5
+    </select>
+
+
+</mapper>

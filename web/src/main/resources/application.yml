@@ -1,0 +1,36 @@
+# ip端口号
+server:
+  port: 8888
+  servlet:
+    context-path: /money
+
+spring:
+  # thymeleaf模板引擎设置
+  thymeleaf:
+    cache: false
+    # 配置服务名
+  application:
+    name: web
+
+# 配置dubbo
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  scan:
+    base-packages: com.bjpowernode.dataservice.service
+  protocol:
+    name: dubbo
+  consumer:
+    retries: 0
+
+# 京东万象短信接口参数属性
+jdwx:
+  sms:
+    url: https://way.jd.com/chuangxin/dxjk
+    content: 【创信】你的验证码是：%s，3分钟内有效！
+    appkey: 8e58c7c32a24902cb74fb0096653a962
+  # 京东万象实名认证接口参数属性
+  identity:
+    url: https://way.jd.com/youhuoBeijing/test
+    appkey: 8e58c7c32a24902cb74fb0096653a962
+
